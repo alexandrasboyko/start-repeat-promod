@@ -1,3 +1,5 @@
+//@ts-check
+
 const {I} = require('./flows')
 const {client} = require('../lib')
 
@@ -9,6 +11,7 @@ const provider = {
     return client
   }
 }
+
 
 module.exports = {
   provider

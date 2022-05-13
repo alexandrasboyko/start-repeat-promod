@@ -1,23 +1,24 @@
+//@ts-check
 const mainFlows = require('./main')
 const tablesFlows = require('./tables')
+const adminsFlows = require('./admin')
 const {prettifyCamelCase} = require('sat-utils')
+const {step} = require('../../lib')
 
 const initFlows = {
   ...mainFlows,
-  ...tablesFlows
+  ...tablesFlows,
+  ...adminsFlows
 }
 
 Object.keys(initFlows).forEach((flowFnName) => {
-  const prettyName = prettifyCamelCase(flowFnName);
+
+  const prettyName = prettifyCamelCase(flowFnName)
   const fn = initFlows[flowFnName]
-  // console.log('prettyName=>', prettyName, '    fn=>', initFlows[flowFnName])
+
   initFlows[flowFnName] = async function(...args) {
-    //ToDo add logger/reporting system
-    // console.log(`I ${prettyName}`)
-    // console.log('this= ', this)
-    // console.log("args=> ", ...args)
-    // console.log(fn.call(this, ...args))
-    return fn.call(this, ...args)
+    console.log(`I ${prettyName}`)
+    return step(`${prettyName}`, () => fn.call(this, ...args), ...args)
   }
 })
 
