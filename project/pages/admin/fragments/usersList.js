@@ -1,26 +1,16 @@
 //@ts-check
-const {BaseFragment, Collection} = require('../../../../lib')
+const {BaseFragment} = require('../../../../lib')
+const {UserItemFragment} = require('./users.item')
+const {Collection} = require('../../../../lib')
 
-/**
- *@typedef {object} UserItemFragmentCommonAction
- *@property {null} [username] username
- *@property {null} [details] details
- */
-
-/**
- *@typedef {object} UserItemFragmentGetResAction
- *@property {string} [username] username
- *@property {string} [details] details
- */
-
-class UserItemFragment extends BaseFragment {
+class UsersListFragment extends BaseFragment {
   constructor(root, name) {
     super(root, name)
-    this.username = this.init('.user_item_username', 'New User', Button)
-    this.details = this.init('.button', 'Users List', Button)
+    this.users = this.init('.user_item_username', 'Users', Collection, UserItemFragment)
   }
 }
 
+
 module.exports = {
-  UserItemFragment
+  UsersListFragment
 }
