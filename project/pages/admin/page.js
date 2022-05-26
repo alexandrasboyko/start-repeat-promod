@@ -10,6 +10,8 @@ const {UsersListFragment} = require('./fragments/usersList')
  * @typedef {import ('./fragments/new.user').UserFormSendKeysAction} UserFormSendKeysAction
  * @typedef {import ('./fragments/togglers').TogglersCommonAction} TogglersCommonAction
  * @typedef {import ('./fragments/togglers').TogglersGetResAction} TogglersGetResAction
+ * @typedef {import ('./fragments/usersList').UsersListCommonAction} UsersListCommonAction
+ * @typedef {import ('./fragments/usersList').UsersListGetResAction} UsersListGetResAction
  */
 
 /**
@@ -24,9 +26,11 @@ const {UsersListFragment} = require('./fragments/usersList')
  * @property {(data?:{
  * togglers?: TogglersCommonAction;
  * userForm?: UserFormCommonAction;
+ * usersList?: UsersListCommonAction
  * })=>Promise<{
  * togglers?: TogglersGetResAction;
  * userForm?: UserFormGetResAction;
+ * usersList?: UsersListGetResAction
  * }>} getData getData method
  */
 class AdminPage extends BasePage {
@@ -34,13 +38,14 @@ class AdminPage extends BasePage {
     super('#admin_page', 'Admin Page')
     this.togglers = this.init('.view_toggler', 'Togglers', Togglers)
     this.userForm = this.init('.admin_new_user', 'Create New User Form', UserFormFragment)
-    this.usersList = this.init('.admin_user_list_root', 'UsersList', UsersListFragment)
+    this.usersList = this.init('.admin_user_list_root', 'Users List', UsersListFragment)
   }
 }
 
 /**
  *@returns {AdminPageInteractionInterFace}
  */
+
 function getAdmin() {
   return new AdminPage()
 }

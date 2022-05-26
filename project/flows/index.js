@@ -16,6 +16,7 @@ Object.keys(initFlows).forEach((flowFnName) => {
   const prettyName = prettifyCamelCase(flowFnName)
   const fn = initFlows[flowFnName]
 
+
   initFlows[flowFnName] = async function(...args) {
     console.log(`I ${prettyName}`)
     return step(`${prettyName}`, () => fn.call(this, ...args), ...args)

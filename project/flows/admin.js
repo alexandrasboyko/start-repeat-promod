@@ -18,9 +18,15 @@ async function createNewUserOnAdminPage(userData) {
   await admin.click({userForm: {create: null}})
 }
 
+async function checkThatUserInUsersList(username) {
+  await admin.click({togglers: {usersList: null}})
+  const {usersList: {users}} = await admin.getData({usersList: {users: {action: {username: null}, username}}})
+  console.log('users===>', users)
+}
 
 
 
 module.exports = {
   createNewUserOnAdminPage,
+  checkThatUserInUsersList
 }

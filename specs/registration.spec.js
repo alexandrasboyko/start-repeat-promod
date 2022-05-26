@@ -43,10 +43,10 @@ describe('Login form', () => {
     const userData = {username: 'admin', password: 'admin'}
     await client.get('http://localhost:4000/')
     await I.loginToSystem(userData)
-    await client.sleep(1000)
     await I.navigateToAdmin()
-    await I.createNewUserOnAdminPage({username: 'testT', name: 'testT', email: 'testT', password: 'testT'})
-    await I.checkThatUserInUsersList('testT')
+    await client.switchToTab({title: 'Адмінська сторінка'})
+    await I.createNewUserOnAdminPage({username: 't2', name: 't2', email: 't2', password: 't2'})
+    await I.checkThatUserInUsersList('t2')
     await client.sleep(15000)
   })
 })
