@@ -2,8 +2,8 @@
 
 const {pageProvider} = require('../pages/pageProvider')
 const {admin} = pageProvider
+
 /**
- *
  * @param {object} userData
  * @param {string|number} [userData.username] username
  * @param {string|number} [userData.name] name
@@ -24,9 +24,24 @@ async function checkThatUserInUsersList(username) {
   console.log('users===>', users)
 }
 
+/**
+ * @param {object} messageData
+ * @param {boolean} [messageData.open] open
+ * @param {string} [messageData.username] username
+ * @param {boolean} [messageData.send] send
+ * @param {string} [messageData.content] content
+ */
+async function answerOnMessage({open = true, username, send = true, ...messageData}) {
+  if(open)
+    await admin.click({footer: {openForm: null}});
+  if(username) await admin.click({messageForm: {sessions: {action: {username: null}, username: {_element: username}}}})
+  await admin.sendKeys({messageForm: messageData})
+  await admin.click({messageForm: {send: null}})
+}
 
 
 module.exports = {
   createNewUserOnAdminPage,
-  checkThatUserInUsersList
+  checkThatUserInUsersList,
+  answerOnMessage
 }
