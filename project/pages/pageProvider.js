@@ -12,8 +12,13 @@ const pageProvider = {
   get admin() {
     const {getAdmin} = require('./admin/page')
     return getAdmin()
+  },
+  get analytics() {
+    const {getAnalitics} = require('./analitics/page')
+    return getAnalitics()
   }
 }
+
 
 module.exports = {
   pageProvider

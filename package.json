@@ -15,7 +15,8 @@
     "allure-mocha": "^2.0.0-beta.16",
     "assertior": "^0.0.27",
     "mocha": "^9.2.2",
-    "promod": "^0.0.35",
-    "sat-utils": "^0.0.41"
+    "promod": "^0.0.40",
+    "sat-utils": "^0.0.41",
+    "yargs": "^17.5.1"
   }
 }

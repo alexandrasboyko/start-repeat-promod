@@ -10,5 +10,5 @@ before(async function() {
 });
 
 after(async function() {
-  await global.browser.quit();
+  await global.browser.quitAll();
 });
