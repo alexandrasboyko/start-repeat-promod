@@ -4,6 +4,8 @@ const {tables} = pageProvider
 const {analytics} = pageProvider
 const {isBoolean} = require('sat-utils')
 const {expect} = require('assertior')
+const {client} = require('../../lib')
+const {getRandomString} = require('sat-utils')
 
 /**
  * @param {string} username username
@@ -31,6 +33,24 @@ async function navigateToAnalitic() {
 }
 
 
+/**
+ * @param {object} machine
+ * @param {string|number} machine.manufacturer manufacturer
+ * @param {string|number} machine.workVolume workVolume
+ * @param {string|number} machine.width width
+ * @param {string|number} machine.length length
+ * @param {string|number} machine.mass mass
+ * @param {string|number} machine.tractorPower tractorPower
+ * @param {string|number} machine.price price
+ */
+
+async function addNewMachine(machine) {
+  console.log(machine)
+  await tables.sendKeys({addNewMachine: machine})
+  await tables.click({addNewMachine: {addBtn: null}})
+}
+
+
 module.exports = {
-  checkThatUserLoggedInSystem, navigateToAdmin, navigateToAnalitic
+  checkThatUserLoggedInSystem, navigateToAdmin, navigateToAnalitic, addNewMachine
 }

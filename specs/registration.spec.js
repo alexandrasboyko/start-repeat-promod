@@ -104,14 +104,46 @@ describe('Login form', () => {
     await client.sleep(7000)
   })
 
-  it.only('[P] Click on Modal buttons', async () => {
+  it('[P] Click on Modal buttons', async () => {
     const userData = {username: 'admin', password: 'admin'}
     await client.get('http://localhost:4000/');
     await I.loginToSystem(userData)
     await I.navigateToAnalitic()
     // await I.clickOnFiltersToOpenModal()
-    await I.checkMinMorkVolumeFilterDataInModalWindow()
+    await I.checkMinOrMaxWorkVolumeFilterDataInModalWindow('maxVolume')
     await client.sleep(15000)
+  })
+
+  function addFieldsToMachine(data = {}) {
+    return {
+      manufacturer: getRandomString(5),
+      workVolume: getRandomString(5, {numbers: true}),
+      width: getRandomString(5, {numbers: true}),
+      length: getRandomString(5, {numbers: true}),
+      mass: getRandomString(5, {numbers: true}),
+      tractorPower: getRandomString(5),
+      price: '1000',
+      ...data
+    }
+  }
+
+  it.only('[P] Add new Machine on Tables Page', async () => {
+    await client.get('http://localhost:4000/');
+    const userData = {username: 'admin', password: 'admin'}
+    //const machine = {manufacturer: '2', workVolume: '2', width: '2', length: '2', mass: '2', tractorPower: '2', price: 0}
+    await I.loginToSystem(userData)
+    await I.navigateToAnalitic()
+    // await client.sleep(3000)
+    const result = await I.getFiltersData(['minVolume', 'maxVolume']) //{minPrice:688255, maxPrice:1430200} або {minWorkWolume: 37}
+    // result.minPrice - 1
+    //const updatedMachine = addFieldsToMachine({price: result.minPrice - 1})
+    const updatedMachine1 = addFieldsToMachine({workVolume: result.maxVolume + 1})
+    //machine.price = result.minPrice - 1
+    await I.navigateToTables()
+    await I.addNewMachine(updatedMachine1)
+    await I.navigateToAnalitic()
+    await I.checkMinOrMaxWorkVolumeFilterDataInModalWindow('maxVolume', updatedMachine1.workVolume)
+    await client.sleep(10000)
   })
 })
 
